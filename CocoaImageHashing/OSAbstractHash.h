@@ -10,4 +10,12 @@
 
 @interface OSAbstractHash : NSObject <OSImageHashingProvider>
 
+/**
+ * Calculate the fingerprint/hash for a given image.
+ *
+ * The input is 32bpp RGBA raw bitmap data with `hashImageSizeInPiexls` dimensions.
+ * The result is a 64-bit number. Returns OSHashTypeError if an error occurs during image processing.
+ */
+- (OSHashType)hashImagePixels:(NSData *)imagePixels;
+
 @end

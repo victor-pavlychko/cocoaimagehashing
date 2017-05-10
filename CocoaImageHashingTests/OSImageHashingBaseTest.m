@@ -184,7 +184,11 @@
         }
     }
     OSImageType *image = [self loadImage:name];
-    NSData *result = [image dataRepresentation];
+#if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR)
+    NSData *result = UIImagePNGRepresentation(image);
+#else
+    NSData *result = [image TIFFRepresentation];
+#endif
     @synchronized(imageCache)
     {
         imageCache[name] = result;

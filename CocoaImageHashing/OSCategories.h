@@ -44,31 +44,11 @@ NS_ASSUME_NONNULL_END
 
 NS_ASSUME_NONNULL_BEGIN
 
-- (nullable NSData *)RGBABitmapDataForResizedImageWithWidth:(NSUInteger)width
-                                                  andHeight:(NSUInteger)height;
+- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size;
 
 @end
 
 NS_ASSUME_NONNULL_END
-
-#pragma mark - NSBitmapImagerep Category
-
-#if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-
-@interface NSBitmapImageRep (CocoaImageHashing)
-
-NS_ASSUME_NONNULL_BEGIN
-
-+ (NSBitmapImageRep *)imageRepFrom:(NSBitmapImageRep *)sourceImageRep
-                     scaledToWidth:(NSUInteger)width
-                    scaledToHeight:(NSUInteger)height
-                usingInterpolation:(NSImageInterpolation)imageInterpolation;
-
-NS_ASSUME_NONNULL_END
-
-@end
-
-#endif
 
 #pragma mark - NSImage Category
 
@@ -78,7 +58,7 @@ NS_ASSUME_NONNULL_END
 
 NS_ASSUME_NONNULL_BEGIN
 
-- (nullable NSData *)dataRepresentation;
+- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size;
 
 NS_ASSUME_NONNULL_END
 
@@ -94,7 +74,7 @@ NS_ASSUME_NONNULL_END
 
 NS_ASSUME_NONNULL_BEGIN
 
-- (nullable NSData *)dataRepresentation;
+- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size;
 
 NS_ASSUME_NONNULL_END
 

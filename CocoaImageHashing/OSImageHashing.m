@@ -84,6 +84,13 @@
     return result;
 }
 
+- (CGSize)hashImageSizeInPiexls
+{
+    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
+    CGSize result = [self hashImageSizeInPiexlsWithProvider:providerId];
+    return result;
+}
+
 - (OSHashDistanceType)hashDistanceSimilarityThreshold
 {
     OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
@@ -116,6 +123,13 @@
 {
     id<OSImageHashingProvider> provider = OSImageHashingProviderFromImageHashingProviderId(providerId);
     OSHashType result = [provider hashImageData:imageData];
+    return result;
+}
+
+- (CGSize)hashImageSizeInPiexlsWithProvider:(OSImageHashingProviderId)providerId
+{
+    id<OSImageHashingProvider> provider = OSImageHashingProviderFromImageHashingProviderId(providerId);
+    CGSize result = provider.hashImageSizeInPiexls;
     return result;
 }
 

@@ -51,6 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
              withProviderId:(OSImageHashingProviderId)providerId;
 
 /**
+ * @see -[OSImageHashingProvider hashImageSizeInPiexls]
+ */
+- (CGSize)hashImageSizeInPiexlsWithProvider:(OSImageHashingProviderId)providerId;
+
+/**
  * @see -[OSImageHashingProvider hashDistanceSimilarityThreshold]
  */
 - (OSHashDistanceType)hashDistanceSimilarityThresholdWithProvider:(OSImageHashingProviderId)providerId;

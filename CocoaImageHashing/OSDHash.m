@@ -28,16 +28,16 @@ static const OSHashDistanceType OSDHashDistanceThreshold = 9;
     return instance;
 }
 
-- (OSHashType)hashImageData:(NSData *)imageData
+- (OSHashType)hashImagePixels:(NSData *)imagePixels
 {
-    NSAssert(imageData, @"Image data must not be null");
-    NSData *pixels = [imageData RGBABitmapDataForResizedImageWithWidth:OSDHashImageWidthInPixels
-                                                             andHeight:OSDHashImageHeightInPixels];
-    if (!pixels) {
-        return OSHashTypeError;
-    }
-    OSHashType result = dhash_rgba_9_9([pixels bytes]);
+    NSAssert(imagePixels, @"Image pixels must not be null");
+    OSHashType result = dhash_rgba_9_9([imagePixels bytes]);
     return result;
+}
+
+- (CGSize)hashImageSizeInPiexls
+{
+    return CGSizeMake(OSDHashImageWidthInPixels, OSDHashImageHeightInPixels);
 }
 
 - (OSHashDistanceType)hashDistanceSimilarityThreshold

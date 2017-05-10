@@ -54,99 +54,44 @@
 
 #pragma mark - NSData Category
 
-OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
+OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForSize(CGSize size)
 {
-    return (width == 8) ? 32 : OS_ALIGN(4 * width, 64);
+    return ((NSInteger)size.width == 8) ? 32 : OS_ALIGN(4 * (NSUInteger)size.width, 64);
 }
 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
 @implementation NSData (CocoaImageHashing)
 
-- (NSData *)RGBABitmapDataForResizedImageWithWidth:(NSUInteger)width
-                                         andHeight:(NSUInteger)height
+- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size
 {
     UIImage *baseImage = [UIImage imageWithData:self];
     if (!baseImage) {
         return nil;
     }
-    CGImageRef imageRef = [baseImage CGImage];
-    if (!imageRef) {
-        return nil;
-    }
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    NSUInteger bytesPerRow = OSBytesPerRowForWidth(width);
-    NSUInteger bitsPerComponent = 8;
-    NSMutableData *data = [NSMutableData dataWithLength:height * bytesPerRow];
-    CGContextRef context = CGBitmapContextCreate([data mutableBytes], width, height, bitsPerComponent, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    CGColorSpaceRelease(colorSpace);
-    CGRect rect = CGRectMake(0, 0, width, height);
-    CGContextDrawImage(context, rect, imageRef);
-    CGContextRelease(context);
-    return data;
+    
+    return [baseImage RGBABitmapDataWithSize:size];
 }
 
 @end
 
 #else
 
-@implementation NSData (CocoaImageHashing)
-
-- (NSData *)RGBABitmapDataForResizedImageWithWidth:(NSUInteger)width
-                                         andHeight:(NSUInteger)height
+OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesForSize(CGSize size)
 {
-    NSBitmapImageRep *sourceImageRep = [NSBitmapImageRep imageRepWithData:self];
-    if (!sourceImageRep) {
-        return nil;
-    }
-    NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepFrom:sourceImageRep
-                                                  scaledToWidth:width
-                                                 scaledToHeight:height
-                                             usingInterpolation:NSImageInterpolationHigh];
-    if (!imageRep) {
-        return nil;
-    }
-    unsigned char *pixels = [imageRep bitmapData];
-    NSData *result = [NSData dataWithBytes:pixels
-                                    length:OSBytesPerRowForWidth(width) * height];
-    return result;
+    return OSBytesPerRowForSize(size) * (NSUInteger)size.height;
 }
 
-@end
+@implementation NSData (CocoaImageHashing)
 
-#endif
-
-#pragma mark - NSBitmapImageRep Category
-
-#if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-
-@implementation NSBitmapImageRep (CocoaImageHashing)
-
-+ (NSBitmapImageRep *)imageRepFrom:(NSBitmapImageRep *)sourceImageRep
-                     scaledToWidth:(NSUInteger)width
-                    scaledToHeight:(NSUInteger)height
-                usingInterpolation:(NSImageInterpolation)imageInterpolation
+- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size
 {
-    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                         pixelsWide:(NSInteger)width
-                                                                         pixelsHigh:(NSInteger)height
-                                                                      bitsPerSample:8
-                                                                    samplesPerPixel:4
-                                                                           hasAlpha:YES
-                                                                           isPlanar:NO
-                                                                     colorSpaceName:NSCalibratedRGBColorSpace
-                                                                        bytesPerRow:(NSInteger)OSBytesPerRowForWidth(width)
-                                                                       bitsPerPixel:0];
-    [NSGraphicsContext saveGraphicsState];
-    NSGraphicsContext *context = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
-    context.imageInterpolation = imageInterpolation;
-    [NSGraphicsContext setCurrentContext:context];
-    [sourceImageRep drawInRect:NSMakeRect(0, 0, width, height)];
-    [context flushGraphics];
-    [NSGraphicsContext restoreGraphicsState];
-    [imageRep setSize:NSMakeSize(width, height)];
-    return imageRep;
+    NSImage *baseImage = [[NSImage alloc] initWithData:self];
+    if (!baseImage) {
+        return nil;
+    }
+    
+    return [baseImage RGBABitmapDataWithSize:size];
 }
 
 @end
@@ -159,9 +104,33 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
 
 @implementation NSImage (CocoaImageHashing)
 
-- (NSData *)dataRepresentation
+- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size
 {
-    NSData *result = [self TIFFRepresentation];
+    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                         pixelsWide:(NSInteger)size.width
+                                                                         pixelsHigh:(NSInteger)size.height
+                                                                      bitsPerSample:8
+                                                                    samplesPerPixel:4
+                                                                           hasAlpha:YES
+                                                                           isPlanar:NO
+                                                                     colorSpaceName:NSCalibratedRGBColorSpace
+                                                                        bytesPerRow:(NSInteger)OSBytesPerRowForSize(size)
+                                                                       bitsPerPixel:0];
+    if (!imageRep) {
+        return nil;
+    }
+
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext *context = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
+    context.imageInterpolation = NSImageInterpolationHigh;
+    [NSGraphicsContext setCurrentContext:context];
+    [self drawInRect:NSMakeRect(0, 0, size.width, size.height)];
+    [context flushGraphics];
+    [NSGraphicsContext restoreGraphicsState];
+    [imageRep setSize:size];
+
+    unsigned char *pixels = [imageRep bitmapData];
+    NSData *result = [NSData dataWithBytes:pixels length:OSBytesForSize(size)];
     return result;
 }
 
@@ -175,10 +144,24 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
 
 @implementation UIImage (CocoaImageHashing)
 
-- (NSData *)dataRepresentation
+- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size
 {
-    NSData *result = UIImagePNGRepresentation(self);
-    return result;
+    CGImageRef imageRef = [self CGImage];
+    if (!imageRef) {
+        return nil;
+    }
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    NSUInteger bytesPerRow = OSBytesPerRowForSize(size);
+    NSUInteger bitsPerComponent = 8;
+    NSMutableData *data = [NSMutableData dataWithLength:(NSUInteger)size.height * bytesPerRow];
+    CGContextRef context = CGBitmapContextCreate([data mutableBytes], (size_t)size.width, (size_t)size.height, bitsPerComponent, bytesPerRow, colorSpace,
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    CGContextDrawImage(context, rect, imageRef);
+    CGContextRelease(context);
+    return data;
 }
 
 @end

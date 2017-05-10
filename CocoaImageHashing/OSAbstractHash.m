@@ -18,12 +18,25 @@
 - (OSHashType)hashImage:(OSImageType *)image
 {
     NSAssert(image, @"Image must not be null");
-    NSData *data = [image dataRepresentation];
-    if (!data) {
+    CGSize imageSize = self.hashImageSizeInPiexls;
+    NSData *pixels = [image RGBABitmapDataWithSize:imageSize];
+    if (!pixels) {
         return OSHashTypeError;
     }
-    OSHashType result = [self hashImageData:data];
-    return result;
+    
+    return [self hashImagePixels:pixels];
+}
+
+- (OSHashType)hashImageData:(NSData *)imageData
+{
+    NSAssert(imageData, @"Image data must not be null");
+    CGSize imageSize = self.hashImageSizeInPiexls;
+    NSData *pixels = [imageData RGBABitmapDataWithSize:imageSize];
+    if (!pixels) {
+        return OSHashTypeError;
+    }
+    
+    return [self hashImagePixels:pixels];
 }
 
 - (BOOL)compareImageData:(NSData *)leftHandImageData
@@ -101,6 +114,13 @@
                                  userInfo:nil];
 }
 
+- (CGSize)hashImageSizeInPiexls
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Abstract method called."
+                                 userInfo:nil];
+}
+
 - (OSHashDistanceType)hashDistanceSimilarityThreshold
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -108,7 +128,7 @@
                                  userInfo:nil];
 }
 
-- (OSHashType)hashImageData:(NSData * OS_UNUSED)imageData
+- (OSHashType)hashImagePixels:(NSData * OS_UNUSED)imagePixels
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:@"Abstract method called."

@@ -7,6 +7,7 @@
 //
 
 @import Foundation;
+@import CoreGraphics;
 
 #pragma mark - Cross Platform Type Aliases
 
@@ -116,11 +117,18 @@ NS_ASSUME_NONNULL_BEGIN
                                 to:(OSHashType)rightHand;
 
 /**
+ * Defines input image size used by the hasing algorithm.
+ *
+ * This value depends on the algorithm in the concrete OSImageHashingProvider implementation.
+ */
+@property (nonatomic, readonly) CGSize hashImageSizeInPiexls;
+
+/**
  * Determines the threshold when two image fingerprints are to be considered similar.
  *
  * This value depends on the algorithm in the concrete OSImageHashingProvider implementation.
  */
-- (OSHashDistanceType)hashDistanceSimilarityThreshold;
+@property (nonatomic, readonly) OSHashDistanceType hashDistanceSimilarityThreshold;
 
 /**
  * Determines if two images (in this case, their data representation) are similar.

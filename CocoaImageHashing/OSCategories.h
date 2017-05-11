@@ -8,21 +8,7 @@
 
 @import Foundation;
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-
-@import UIKit;
-
-#endif
-
-#if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-
-@import Cocoa;
-
-#endif
-
 @class OSTuple<A, B>;
-
-@class OSWeakTuple<A, B>;
 
 #pragma mark - NSArray Category
 
@@ -30,57 +16,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-- (NSArray<OSTuple<id, id> *> *)arrayWithPairCombinations;
+- (NSArray<OSTuple<id, id> *> *)os_arrayWithPairCombinations;
 
-- (void)enumeratePairCombinationsUsingBlock:(void (^)(id __unsafe_unretained leftHand, id __unsafe_unretained rightHand))block;
-
-NS_ASSUME_NONNULL_END
-
-@end
-
-#pragma mark - NSData Category
-
-@interface NSData (CococaImageHashing)
-
-NS_ASSUME_NONNULL_BEGIN
-
-- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size;
-
-@end
-
-NS_ASSUME_NONNULL_END
-
-#pragma mark - NSImage Category
-
-#if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-
-@interface NSImage (CocoaImageHashing)
-
-NS_ASSUME_NONNULL_BEGIN
-
-- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size;
+- (void)os_enumeratePairCombinationsUsingBlock:(void (^)(id __unsafe_unretained leftHand, id __unsafe_unretained rightHand))block;
 
 NS_ASSUME_NONNULL_END
 
 @end
-
-#endif
-
-#pragma mark - UIImage Category
-
-#if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-
-@interface UIImage (CocoaImageHashing)
-
-NS_ASSUME_NONNULL_BEGIN
-
-- (nullable NSData *)RGBABitmapDataWithSize:(CGSize)size;
-
-NS_ASSUME_NONNULL_END
-
-@end
-
-#endif
 
 #pragma mark - NSString Category
 
@@ -88,7 +30,7 @@ NS_ASSUME_NONNULL_END
 
 NS_ASSUME_NONNULL_BEGIN
 
-- (unsigned long long)fileSizeOfElementInBundle:(NSBundle *)bundle;
+- (unsigned long long)os_fileSizeOfElementInBundle:(NSBundle *)bundle;
 
 NS_ASSUME_NONNULL_END
 

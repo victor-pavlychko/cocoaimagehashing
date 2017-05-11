@@ -42,7 +42,7 @@
     NSUInteger combinations = [dataSet count] * [dataSet count] - [dataSet count];
     NSLog(@"Testing %@ base images for %@ combinations", @(baseCount), @(combinations));
     for (NSArray<OSDataHolder *> *dataArray in dataSet) {
-        NSArray<OSTuple<OSDataHolder *, OSDataHolder *> *> *pairs = [dataArray arrayWithPairCombinations];
+        NSArray<OSTuple<OSDataHolder *, OSDataHolder *> *> *pairs = [dataArray os_arrayWithPairCombinations];
         for (OSTuple<OSDataHolder *, OSDataHolder *> *pair in pairs) {
             BOOL phashResult = [[OSImageHashing sharedInstance] compareImageData:OS_CAST_NONNULL(pair.first.data)
                                                                               to:OS_CAST_NONNULL(pair.second.data)
@@ -68,7 +68,7 @@
 - (void)testPHashMultithreadedHashingPerformance
 {
     const NSUInteger iterations = 1024 * 2;
-    unsigned long long filesize = [@"blurred/architecture1.bmp" fileSizeOfElementInBundle:[self bundle]];
+    unsigned long long filesize = [@"blurred/architecture1.bmp" os_fileSizeOfElementInBundle:[self bundle]];
     NSData *imageData = [self loadImageAsData:@"blurred/architecture1.bmp"];
     NSDate *t0 = [NSDate date];
     NSOperationQueue *operationQueue = [NSOperationQueue new];

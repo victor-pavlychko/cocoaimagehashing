@@ -7,6 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57E929D31EC4940800B99829 /* OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929D21EC4940800B99829 /* OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929D41EC4940800B99829 /* OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929D21EC4940800B99829 /* OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929D51EC4940800B99829 /* OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929D21EC4940800B99829 /* OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929D61EC4940800B99829 /* OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929D21EC4940800B99829 /* OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929DB1EC4949000B99829 /* UIImage+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929D71EC4949000B99829 /* UIImage+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929DC1EC4949000B99829 /* UIImage+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929D71EC4949000B99829 /* UIImage+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929DF1EC4949000B99829 /* UIImage+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929D81EC4949000B99829 /* UIImage+OSImageHashable.m */; };
+		57E929E01EC4949000B99829 /* UIImage+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929D81EC4949000B99829 /* UIImage+OSImageHashable.m */; };
+		57E929E31EC494A100B99829 /* NSImage+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929E11EC494A100B99829 /* NSImage+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929E41EC494A100B99829 /* NSImage+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929E11EC494A100B99829 /* NSImage+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929E71EC494A100B99829 /* NSImage+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929E21EC494A100B99829 /* NSImage+OSImageHashable.m */; };
+		57E929E81EC494A100B99829 /* NSImage+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929E21EC494A100B99829 /* NSImage+OSImageHashable.m */; };
+		57E929ED1EC494B300B99829 /* NSData+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929EB1EC494B300B99829 /* NSData+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929EE1EC494B300B99829 /* NSData+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929EB1EC494B300B99829 /* NSData+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929EF1EC494B300B99829 /* NSData+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929EB1EC494B300B99829 /* NSData+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929F01EC494B300B99829 /* NSData+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929EB1EC494B300B99829 /* NSData+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929F11EC494B300B99829 /* NSData+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929EC1EC494B300B99829 /* NSData+OSImageHashable.m */; };
+		57E929F21EC494B300B99829 /* NSData+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929EC1EC494B300B99829 /* NSData+OSImageHashable.m */; };
+		57E929F31EC494B300B99829 /* NSData+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929EC1EC494B300B99829 /* NSData+OSImageHashable.m */; };
+		57E929F41EC494B300B99829 /* NSData+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929EC1EC494B300B99829 /* NSData+OSImageHashable.m */; };
+		57E929F91EC494C800B99829 /* PHAsset+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929F51EC494C800B99829 /* PHAsset+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929FA1EC494C800B99829 /* PHAsset+OSImageHashable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E929F51EC494C800B99829 /* PHAsset+OSImageHashable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57E929FD1EC494C800B99829 /* PHAsset+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929F61EC494C800B99829 /* PHAsset+OSImageHashable.m */; };
+		57E929FE1EC494C800B99829 /* PHAsset+OSImageHashable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E929F61EC494C800B99829 /* PHAsset+OSImageHashable.m */; };
 		CA462F7E1BD252930010EEBD /* OSSimilaritySearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CA462F7D1BD252930010EEBD /* OSSimilaritySearchTests.m */; };
 		CA5EFBD71BCA916E00143DAA /* architecture1.bmp in Copy Blurred Images */ = {isa = PBXBuildFile; fileRef = CADF6BD01BC8EFC00039E5A8 /* architecture1.bmp */; };
 		CA5EFBD81BCA916E00143DAA /* architecture_2.bmp in Copy Blurred Images */ = {isa = PBXBuildFile; fileRef = CADF6BD11BC8EFC00039E5A8 /* architecture_2.bmp */; };
@@ -473,6 +497,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		57E929D21EC4940800B99829 /* OSImageHashable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSImageHashable.h; path = CocoaImageHashing/OSImageHashable.h; sourceTree = "<group>"; };
+		57E929D71EC4949000B99829 /* UIImage+OSImageHashable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+OSImageHashable.h"; path = "CocoaImageHashing/UIImage+OSImageHashable.h"; sourceTree = "<group>"; };
+		57E929D81EC4949000B99829 /* UIImage+OSImageHashable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+OSImageHashable.m"; path = "CocoaImageHashing/UIImage+OSImageHashable.m"; sourceTree = "<group>"; };
+		57E929E11EC494A100B99829 /* NSImage+OSImageHashable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+OSImageHashable.h"; path = "CocoaImageHashing/NSImage+OSImageHashable.h"; sourceTree = "<group>"; };
+		57E929E21EC494A100B99829 /* NSImage+OSImageHashable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+OSImageHashable.m"; path = "CocoaImageHashing/NSImage+OSImageHashable.m"; sourceTree = "<group>"; };
+		57E929EB1EC494B300B99829 /* NSData+OSImageHashable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+OSImageHashable.h"; path = "CocoaImageHashing/NSData+OSImageHashable.h"; sourceTree = "<group>"; };
+		57E929EC1EC494B300B99829 /* NSData+OSImageHashable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+OSImageHashable.m"; path = "CocoaImageHashing/NSData+OSImageHashable.m"; sourceTree = "<group>"; };
+		57E929F51EC494C800B99829 /* PHAsset+OSImageHashable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PHAsset+OSImageHashable.h"; path = "CocoaImageHashing/PHAsset+OSImageHashable.h"; sourceTree = "<group>"; };
+		57E929F61EC494C800B99829 /* PHAsset+OSImageHashable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PHAsset+OSImageHashable.m"; path = "CocoaImageHashing/PHAsset+OSImageHashable.m"; sourceTree = "<group>"; };
 		CA31B4A81D8C3E0A00AEF251 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		CA462F7D1BD252930010EEBD /* OSSimilaritySearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSSimilaritySearchTests.m; sourceTree = "<group>"; };
 		CA46F8A41BD680CB0067D945 /* CocoaImageHashing.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = CocoaImageHashing.profdata; sourceTree = "<group>"; };
@@ -635,6 +668,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57E929D11EC493CC00B99829 /* Hashable */ = {
+			isa = PBXGroup;
+			children = (
+				57E929D21EC4940800B99829 /* OSImageHashable.h */,
+				57E929D71EC4949000B99829 /* UIImage+OSImageHashable.h */,
+				57E929D81EC4949000B99829 /* UIImage+OSImageHashable.m */,
+				57E929E11EC494A100B99829 /* NSImage+OSImageHashable.h */,
+				57E929E21EC494A100B99829 /* NSImage+OSImageHashable.m */,
+				57E929EB1EC494B300B99829 /* NSData+OSImageHashable.h */,
+				57E929EC1EC494B300B99829 /* NSData+OSImageHashable.m */,
+				57E929F51EC494C800B99829 /* PHAsset+OSImageHashable.h */,
+				57E929F61EC494C800B99829 /* PHAsset+OSImageHashable.m */,
+			);
+			name = Hashable;
+			sourceTree = "<group>";
+		};
 		CA315C361BD2C28600141BAB /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +800,7 @@
 		CADF6BCC1BC8EFA90039E5A8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				57E929D11EC493CC00B99829 /* Hashable */,
 				CA7413E11BD0F11E00C816B5 /* Hashing */,
 				CAEA26601BD110AB00380B76 /* Similarity Search */,
 				CA73155E1BCE35CD00F42629 /* Support */,
@@ -932,10 +982,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57E929EE1EC494B300B99829 /* NSData+OSImageHashable.h in Headers */,
+				57E929D41EC4940800B99829 /* OSImageHashable.h in Headers */,
 				CA7413D91BD0EAA800C816B5 /* OSAbstractHash.h in Headers */,
 				CA74138E1BD0E65100C816B5 /* OSAHash.h in Headers */,
 				CA74138F1BD0E65100C816B5 /* OSDHash.h in Headers */,
 				CAEA26641BD110C200380B76 /* OSSimilaritySearch.h in Headers */,
+				57E929E41EC494A100B99829 /* NSImage+OSImageHashable.h in Headers */,
 				F7E65B411D99A614004A7B31 /* OSTypes+Internal.h in Headers */,
 				CA7413901BD0E65100C816B5 /* OSPHash.h in Headers */,
 				CA7413911BD0E65100C816B5 /* CocoaImageHashing.h in Headers */,
@@ -950,17 +1003,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57E929F01EC494B300B99829 /* NSData+OSImageHashable.h in Headers */,
+				57E929D61EC4940800B99829 /* OSImageHashable.h in Headers */,
 				CA7413DB1BD0EAA800C816B5 /* OSAbstractHash.h in Headers */,
 				CA7413AF1BD0E81700C816B5 /* OSAHash.h in Headers */,
 				CA7413B01BD0E81700C816B5 /* OSDHash.h in Headers */,
 				CAEA26661BD110C200380B76 /* OSSimilaritySearch.h in Headers */,
 				F7E65B431D99A614004A7B31 /* OSTypes+Internal.h in Headers */,
+				57E929DC1EC4949000B99829 /* UIImage+OSImageHashable.h in Headers */,
 				CA7413B11BD0E81700C816B5 /* OSPHash.h in Headers */,
 				CA7413B21BD0E81700C816B5 /* CocoaImageHashing.h in Headers */,
 				CA7413B41BD0E81700C816B5 /* OSTypes.h in Headers */,
 				CA7413B51BD0E81700C816B5 /* OSImageHashing.h in Headers */,
 				CA7413B61BD0E82500C816B5 /* OSCategories.h in Headers */,
 				CA7413B71BD0E82500C816B5 /* OSFastGraphics.h in Headers */,
+				57E929FA1EC494C800B99829 /* PHAsset+OSImageHashable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,17 +1025,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57E929EF1EC494B300B99829 /* NSData+OSImageHashable.h in Headers */,
+				57E929D51EC4940800B99829 /* OSImageHashable.h in Headers */,
 				CA7413DA1BD0EAA800C816B5 /* OSAbstractHash.h in Headers */,
 				CA7413CD1BD0E88300C816B5 /* OSAHash.h in Headers */,
 				CA7413CE1BD0E88300C816B5 /* OSDHash.h in Headers */,
 				CAEA26651BD110C200380B76 /* OSSimilaritySearch.h in Headers */,
 				F7E65B421D99A614004A7B31 /* OSTypes+Internal.h in Headers */,
+				57E929DB1EC4949000B99829 /* UIImage+OSImageHashable.h in Headers */,
 				CA7413CF1BD0E88300C816B5 /* OSPHash.h in Headers */,
 				CA7413D01BD0E88300C816B5 /* CocoaImageHashing.h in Headers */,
 				CA7413D21BD0E88300C816B5 /* OSTypes.h in Headers */,
 				CA7413D31BD0E88300C816B5 /* OSImageHashing.h in Headers */,
 				CA7413D41BD0E89100C816B5 /* OSCategories.h in Headers */,
 				CA7413D51BD0E89100C816B5 /* OSFastGraphics.h in Headers */,
+				57E929F91EC494C800B99829 /* PHAsset+OSImageHashable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,10 +1047,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57E929ED1EC494B300B99829 /* NSData+OSImageHashable.h in Headers */,
+				57E929D31EC4940800B99829 /* OSImageHashable.h in Headers */,
 				CA7413D81BD0EAA800C816B5 /* OSAbstractHash.h in Headers */,
 				CA95045F1BCD9A1000305210 /* OSFastGraphics.h in Headers */,
 				CAE958F01BCAD7D30061A909 /* OSCategories.h in Headers */,
 				CAEA26631BD110C200380B76 /* OSSimilaritySearch.h in Headers */,
+				57E929E31EC494A100B99829 /* NSImage+OSImageHashable.h in Headers */,
 				F7E65B401D99A614004A7B31 /* OSTypes+Internal.h in Headers */,
 				CADF6C701BC8F1E40039E5A8 /* OSPHash.h in Headers */,
 				CA963C121BCFCBD500D74D22 /* OSTypes.h in Headers */,
@@ -1209,9 +1273,11 @@
 				CA7413DD1BD0EAA800C816B5 /* OSAbstractHash.m in Sources */,
 				CA7413861BD0E61C00C816B5 /* OSAHash.m in Sources */,
 				CAD201D31BF3BE0600C69589 /* OSFastGraphics.m in Sources */,
+				57E929E81EC494A100B99829 /* NSImage+OSImageHashable.m in Sources */,
 				CAEA26681BD110C200380B76 /* OSSimilaritySearch.m in Sources */,
 				CA7413871BD0E61C00C816B5 /* OSDHash.m in Sources */,
 				CA7413881BD0E61C00C816B5 /* OSPHash.m in Sources */,
+				57E929F21EC494B300B99829 /* NSData+OSImageHashable.m in Sources */,
 				CA7413891BD0E61C00C816B5 /* OSImageHashing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1227,7 +1293,10 @@
 				CAD201D51BF3BE0700C69589 /* OSFastGraphics.m in Sources */,
 				CA7413DF1BD0EAA800C816B5 /* OSAbstractHash.m in Sources */,
 				CAEA266A1BD110C200380B76 /* OSSimilaritySearch.m in Sources */,
+				57E929FE1EC494C800B99829 /* PHAsset+OSImageHashable.m in Sources */,
+				57E929E01EC4949000B99829 /* UIImage+OSImageHashable.m in Sources */,
 				CA7413AC1BD0E7FB00C816B5 /* OSTypes.m in Sources */,
+				57E929F41EC494B300B99829 /* NSData+OSImageHashable.m in Sources */,
 				CA7413AD1BD0E7FB00C816B5 /* OSImageHashing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1243,7 +1312,10 @@
 				CAD201D41BF3BE0600C69589 /* OSFastGraphics.m in Sources */,
 				CA7413DE1BD0EAA800C816B5 /* OSAbstractHash.m in Sources */,
 				CAEA26691BD110C200380B76 /* OSSimilaritySearch.m in Sources */,
+				57E929FD1EC494C800B99829 /* PHAsset+OSImageHashable.m in Sources */,
+				57E929DF1EC4949000B99829 /* UIImage+OSImageHashable.m in Sources */,
 				CA7413CB1BD0E87400C816B5 /* OSTypes.m in Sources */,
+				57E929F31EC494B300B99829 /* NSData+OSImageHashable.m in Sources */,
 				CA7413CC1BD0E87400C816B5 /* OSImageHashing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1271,9 +1343,11 @@
 				CADF6C621BC8F0370039E5A8 /* OSDHash.m in Sources */,
 				CA963C141BCFCC6200D74D22 /* OSTypes.m in Sources */,
 				CAD201D21BF3BE0600C69589 /* OSFastGraphics.m in Sources */,
+				57E929E71EC494A100B99829 /* NSImage+OSImageHashable.m in Sources */,
 				CA7413DC1BD0EAA800C816B5 /* OSAbstractHash.m in Sources */,
 				CAEA26671BD110C200380B76 /* OSSimilaritySearch.m in Sources */,
 				CADF6C741BC8F3820039E5A8 /* OSImageHashing.m in Sources */,
+				57E929F11EC494B300B99829 /* NSData+OSImageHashable.m in Sources */,
 				CADF6C6C1BC8F1DD0039E5A8 /* OSAHash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

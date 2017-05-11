@@ -124,7 +124,7 @@
 - (void)testDCT
 {
     NSData *imageData = [self loadImageAsData:@"blurred/architecture1.bmp"];
-    NSData *pixels = [imageData RGBABitmapDataWithSize:CGSizeMake(8, 8)];
+    NSData *pixels = [imageData os_RGBABitmapDataWithSize:CGSizeMake(8, 8)];
     double greyscalePixels[32][32] = {{0.0}};
     double fastDctPixels[32][32] = {{0.0}};
     double dctPixels[32][32] = {{0.0}};
@@ -142,7 +142,7 @@
 {
     const NSUInteger iterations = 1024 * 2;
     NSData *imageData = [self loadImageAsData:@"blurred/architecture1.bmp"];
-    NSData *pixels = [imageData RGBABitmapDataWithSize:CGSizeMake(8, 8)];
+    NSData *pixels = [imageData os_RGBABitmapDataWithSize:CGSizeMake(8, 8)];
     double fastDctPixels[32][32] = {{0.0}};
     double greyscalePixels[32][32] = {{0.0}};
     greyscale_pixels_rgba_32_32([pixels bytes], greyscalePixels);
@@ -160,7 +160,7 @@
 {
     NSData *imageData = [self loadImageAsData:@"misc/latrobe.bmp"];
     for (NSUInteger dim = 8; dim <= 9; dim++) {
-        NSData *pixels = [imageData RGBABitmapDataWithSize:CGSizeMake(dim, dim)];
+        NSData *pixels = [imageData os_RGBABitmapDataWithSize:CGSizeMake(dim, dim)];
         uint64_t *lines = (uint64_t *)[pixels bytes];
         NSUInteger length = [pixels length] / sizeof(lines);
         for (NSUInteger i = 0; i < length; i += 8) {

@@ -9,14 +9,20 @@
 @import Foundation;
 @import CoreGraphics;
 
+#import "OSImageHashable.h"
+#import "NSData+OSImageHashable.h"
+
 #pragma mark - Cross Platform Type Aliases
 
 #if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR)
 @class UIImage;
 #define OSImageType UIImage
+#import "UIImage+OSImageHashable.h"
+#import "PHAsset+OSImageHashable.h"
 #else
 @class NSImage;
 #define OSImageType NSImage
+#import "NSImage+OSImageHashable.h"
 #endif
 
 #pragma mark - Primitive Type Definitions

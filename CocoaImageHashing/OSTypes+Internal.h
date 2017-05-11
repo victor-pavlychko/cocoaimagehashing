@@ -34,6 +34,16 @@ OS_INLINE OSHashDistanceType OSHammingDistance(OSHashType leftHand, OSHashType r
     return (OSHashDistanceType)__builtin_popcountll((UInt64)leftHand ^ (UInt64)rightHand);
 }
 
+OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForSize(CGSize size)
+{
+    return ((NSInteger)size.width == 8) ? 32 : OS_ALIGN(4 * (NSUInteger)size.width, 64);
+}
+
+OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesForSize(CGSize size)
+{
+    return OSBytesPerRowForSize(size) * (NSUInteger)size.height;
+}
+
 #pragma mark - Non-null Check Helpers
 
 /**

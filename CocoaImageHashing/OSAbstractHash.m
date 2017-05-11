@@ -19,7 +19,7 @@
 {
     NSAssert(image, @"Image must not be null");
     CGSize imageSize = self.hashImageSizeInPiexls;
-    NSData *pixels = [image RGBABitmapDataWithSize:imageSize];
+    NSData *pixels = [image os_RGBABitmapDataWithSize:imageSize];
     if (!pixels) {
         return OSHashTypeError;
     }
@@ -31,7 +31,7 @@
 {
     NSAssert(imageData, @"Image data must not be null");
     CGSize imageSize = self.hashImageSizeInPiexls;
-    NSData *pixels = [imageData RGBABitmapDataWithSize:imageSize];
+    NSData *pixels = [imageData os_RGBABitmapDataWithSize:imageSize];
     if (!pixels) {
         return OSHashTypeError;
     }

@@ -70,7 +70,7 @@
 - (void)testDHashMultithreadedHashingPerformance
 {
     const NSUInteger iterations = 1024 * 8;
-    unsigned long long filesize = [@"blurred/architecture1.bmp" fileSizeOfElementInBundle:[self bundle]];
+    unsigned long long filesize = [@"blurred/architecture1.bmp" os_fileSizeOfElementInBundle:[self bundle]];
     NSData *imageData = [self loadImageAsData:@"blurred/architecture1.bmp"];
     NSDate *t0 = [NSDate date];
     NSOperationQueue *operationQueue = [NSOperationQueue new];

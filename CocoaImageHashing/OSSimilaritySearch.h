@@ -16,16 +16,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Array & Stream Based Similarity Search
 
-- (void)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
+- (void)similarImagesWithProvider:(id<OSImageHashingProvider>)imageHashingProvider
         withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
             forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler
                  forResultHandler:(void (^)(OSImageId * __unsafe_unretained leftHandImageId, OSImageId * __unsafe_unretained rightHandImageId))resultHandler;
 
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
+- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(id<OSImageHashingProvider>)imageHashingProvider
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                       forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler;
 
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
+- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(id<OSImageHashingProvider>)imageHashingProvider
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                                   forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)imageTuples;
 

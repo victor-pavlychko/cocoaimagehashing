@@ -218,7 +218,8 @@
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                       forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler
 {
-    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [[OSSimilaritySearch sharedInstance] similarImagesWithProvider:imageHashingProviderId
+    id<OSImageHashingProvider> imageHashingProvider = OSImageHashingProviderFromImageHashingProviderId(imageHashingProviderId);
+    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [[OSSimilaritySearch sharedInstance] similarImagesWithProvider:imageHashingProvider
                                                                                                 withHashDistanceThreshold:hashDistanceThreshold
                                                                                                     forImageStreamHandler:imageStreamHandler];
     return result;
@@ -264,7 +265,8 @@
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                                   forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)images
 {
-    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [[OSSimilaritySearch sharedInstance] similarImagesWithProvider:imageHashingProviderId
+    id<OSImageHashingProvider> imageHashingProvider = OSImageHashingProviderFromImageHashingProviderId(imageHashingProviderId);
+    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [[OSSimilaritySearch sharedInstance] similarImagesWithProvider:imageHashingProvider
                                                                                                 withHashDistanceThreshold:hashDistanceThreshold
                                                                                                                 forImages:images];
     return result;

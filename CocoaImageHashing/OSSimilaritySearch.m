@@ -26,21 +26,18 @@
 
 #pragma mark - Collection & Stream Based Similarity Search
 
-- (void)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
+- (void)similarImagesWithProvider:(id<OSImageHashingProvider>)imageHashingProvider
         withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
             forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler
                  forResultHandler:(void (^)(OSImageId * __unsafe_unretained leftHandImageId, OSImageId * __unsafe_unretained rightHandImageId))resultHandler
 {
+    NSAssert(imageHashingProvider, @"Image hasing provider must not be nil");
     NSAssert(imageStreamHandler, @"Image stream handler must not be nil");
     NSAssert(resultHandler, @"Result handler must not be nil");
     NSMutableArray<OSHashResultTuple<NSString *> *> __block *fingerPrintedTuples = [NSMutableArray new];
     NSUInteger cpuCount = [[NSProcessInfo processInfo] processorCount];
     dispatch_semaphore_t hashingSemaphore = dispatch_semaphore_create((long)cpuCount);
     dispatch_group_t hashingDispatchGroup = dispatch_group_create();
-    id<OSImageHashingProvider> hashingProvider = OSImageHashingProviderFromImageHashingProviderId(imageHashingProviderId);
-    if (!hashingProvider) {
-        return;
-    }
     OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
     for (;;) {
         OSTuple<NSString *, id<OSImageHashable>> __block *inputTuple = imageStreamHandler();
@@ -53,7 +50,7 @@
         }
         dispatch_semaphore_wait(hashingSemaphore, DISPATCH_TIME_FOREVER);
         dispatch_group_async(hashingDispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-          OSHashType hashResult = [hashingProvider hashImage:image];
+          OSHashType hashResult = [imageHashingProvider hashImage:image];
           if (hashResult != OSHashTypeError) {
               OSHashResultTuple<NSString *> *resultTuple = [OSHashResultTuple new];
               resultTuple->_first = inputTuple->_first;
@@ -74,14 +71,14 @@
     }];
 }
 
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
+- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(id<OSImageHashingProvider>)imageHashingProvider
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                       forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler
 {
     NSAssert(imageStreamHandler, @"Image stream handler must not be nil");
     NSMutableArray<OSTuple<NSString *, NSString *> *> *tuples = [NSMutableArray new];
     OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
-    [self similarImagesWithProvider:imageHashingProviderId
+    [self similarImagesWithProvider:imageHashingProvider
           withHashDistanceThreshold:hashDistanceThreshold
               forImageStreamHandler:imageStreamHandler
                    forResultHandler:^(OSImageId * __unsafe_unretained leftHandImageId, OSImageId * __unsafe_unretained rightHandImageId) {
@@ -94,14 +91,14 @@
     return tuples;
 }
 
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
+- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(id<OSImageHashingProvider>)imageHashingProvider
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                                   forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)imageTuples
 {
     NSAssert(imageTuples, @"Image tuple array must not be nil");
     NSUInteger __block i = 0;
     NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self
-        similarImagesWithProvider:imageHashingProviderId
+        similarImagesWithProvider:imageHashingProvider
         withHashDistanceThreshold:hashDistanceThreshold
             forImageStreamHandler:^OSTuple<OSImageId *, id<OSImageHashable>> * {
               if (i >= [imageTuples count]) {

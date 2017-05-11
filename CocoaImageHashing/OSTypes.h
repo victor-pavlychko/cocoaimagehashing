@@ -149,11 +149,9 @@ NS_ASSUME_NONNULL_BEGIN
        withThreshold:(OSHashDistanceType)distanceThreshold;
 
 /**
- * This method is used to create an NSComparisonResult which can be used to sort an image collection wrt their similarity to a image.
+ * This method is used to create an NSComparator which can be used to sort an image collection wrt their similarity to a image.
  */
-- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImage:(id<OSImageHashable>)baseImage
-                                                   forLeftHandImage:(id<OSImageHashable>)leftHandImage
-                                                  forRightHandImage:(id<OSImageHashable>)rightHandImage;
+- (NSComparator)imageSimilarityComparatorForBaseImage:(id<OSImageHashable>)baseImage;
 
 NS_ASSUME_NONNULL_END
 

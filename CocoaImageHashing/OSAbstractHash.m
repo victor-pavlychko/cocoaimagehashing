@@ -62,35 +62,35 @@
     return distance < distanceThreshold;
 }
 
-- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImage:(id<OSImageHashable>)baseImage
-                                                   forLeftHandImage:(id<OSImageHashable>)leftHandImage
-                                                  forRightHandImage:(id<OSImageHashable>)rightHandImage
+- (NSComparator)imageSimilarityComparatorForBaseImage:(id<OSImageHashable>)baseImage
 {
     NSAssert(baseImage, @"Base image must not be null");
-    NSAssert(rightHandImage, @"Right hand image must not be null");
-    NSAssert(leftHandImage, @"Left hand image must not be null");
-    NSAssert(rightHandImage, @"Right hand image must not be null");
-    OSHashType leftHandImageHash = [self hashImage:leftHandImage];
-    OSHashType rightHandImageHash = [self hashImage:rightHandImage];
     OSHashType baseImageHash = [self hashImage:baseImage];
-    if (baseImageHash == OSHashTypeError) {
-        return NSOrderedSame;
-    } else if (leftHandImageHash == OSHashTypeError) {
-        return NSOrderedDescending;
-    } else if (rightHandImageHash == OSHashTypeError) {
-        return NSOrderedAscending;
-    }
-    OSHashDistanceType distanceToLeftImage = [self hashDistance:leftHandImageHash
-                                                             to:baseImageHash];
-    OSHashDistanceType distanceToRightImage = [self hashDistance:rightHandImageHash
-                                                              to:baseImageHash];
-    if (distanceToLeftImage < distanceToRightImage) {
-        return NSOrderedAscending;
-    } else if (distanceToLeftImage > distanceToRightImage) {
-        return NSOrderedDescending;
-    } else {
-        return NSOrderedSame;
-    }
+
+    return ^(id<OSImageHashable> leftHandImage, id<OSImageHashable> rightHandImage) {
+        NSCAssert(leftHandImage, @"Left hand image must not be null");
+        NSCAssert(rightHandImage, @"Right hand image must not be null");
+        OSHashType leftHandImageHash = [self hashImage:leftHandImage];
+        OSHashType rightHandImageHash = [self hashImage:rightHandImage];
+
+        if (baseImageHash == OSHashTypeError) {
+            return NSOrderedSame;
+        } else if (leftHandImageHash == OSHashTypeError) {
+            return NSOrderedDescending;
+        } else if (rightHandImageHash == OSHashTypeError) {
+            return NSOrderedAscending;
+        }
+
+        OSHashDistanceType distanceToLeftImage = [self hashDistance:leftHandImageHash to:baseImageHash];
+        OSHashDistanceType distanceToRightImage = [self hashDistance:rightHandImageHash to:baseImageHash];
+        if (distanceToLeftImage < distanceToRightImage) {
+            return NSOrderedAscending;
+        } else if (distanceToLeftImage > distanceToRightImage) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    };
 }
 
 #pragma mark - Abstract methods

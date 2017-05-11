@@ -77,12 +77,10 @@ NS_ASSUME_NONNULL_BEGIN
       withProviderId:(OSImageHashingProviderId)providerId;
 
 /**
- * @see -[OSImageHashingProvider imageSimilarityComparatorForImageForBaseImage:forLeftHandImage:forRightHandImage:]
+ * @see -[OSImageHashingProvider imageSimilarityComparatorForBaseImage:]
  */
-- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImage:(id<OSImageHashable>)baseImage
-                                                   forLeftHandImage:(id<OSImageHashable>)leftHandImage
-                                                  forRightHandImage:(id<OSImageHashable>)rightHandImage
-                                                     withProviderId:(OSImageHashingProviderId)providerId;
+- (NSComparator)imageSimilarityComparatorForBaseImage:(id<OSImageHashable>)baseImage
+                                       withProviderId:(OSImageHashingProviderId)providerId;
 
 #pragma mark - Concurrent, stream based similarity search
 

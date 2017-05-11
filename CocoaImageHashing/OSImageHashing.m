@@ -64,15 +64,11 @@
     return result;
 }
 
-- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImage:(id<OSImageHashable>)baseImage
-                                                   forLeftHandImage:(id<OSImageHashable>)leftHandImage
-                                                  forRightHandImage:(id<OSImageHashable>)rightHandImage
+- (NSComparator)imageSimilarityComparatorForBaseImage:(id<OSImageHashable>)baseImage
 {
     OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    NSComparisonResult result = [self imageSimilarityComparatorForImageForBaseImage:baseImage
-                                                                   forLeftHandImage:leftHandImage
-                                                                  forRightHandImage:rightHandImage
-                                                                     withProviderId:providerId];
+    NSComparator result = [self imageSimilarityComparatorForBaseImage:baseImage
+                                                       withProviderId:providerId];
     return result;
 }
 
@@ -166,15 +162,11 @@
     return YES;
 }
 
-- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImage:(id<OSImageHashable>)baseImage
-                                                   forLeftHandImage:(id<OSImageHashable>)leftHandImage
-                                                  forRightHandImage:(id<OSImageHashable>)rightHandImage
-                                                     withProviderId:(OSImageHashingProviderId)providerId
+- (NSComparator)imageSimilarityComparatorForBaseImage:(id<OSImageHashable>)baseImage
+                                       withProviderId:(OSImageHashingProviderId)providerId
 {
     id<OSImageHashingProvider> provider = OSImageHashingProviderFromImageHashingProviderId(providerId);
-    NSComparisonResult result = [provider imageSimilarityComparatorForImageForBaseImage:baseImage
-                                                                       forLeftHandImage:leftHandImage
-                                                                      forRightHandImage:rightHandImage];
+    NSComparator result = [provider imageSimilarityComparatorForBaseImage:baseImage];
     return result;
 }
 
@@ -293,14 +285,13 @@
     NSAssert(baseImage, @"Base image must not be null");
     NSAssert(array, @"Array must not be null");
     NSAssert(imageConverter, @"Image converter must not be null");
+    NSComparator comparator = [self imageSimilarityComparatorForBaseImage:baseImage
+                                                           withProviderId:imageHashingProviderId];
     NSArray<id> *result = [array sortedArrayUsingComparator:^NSComparisonResult(id leftHandElement, id rightHandElement) {
-      id<OSImageHashable> leftHandImage = imageConverter(leftHandElement);
-      id<OSImageHashable> rightHandImage = imageConverter(rightHandElement);
-      NSComparisonResult comparisonResult = [[OSImageHashing sharedInstance] imageSimilarityComparatorForImageForBaseImage:baseImage
-                                                                                                          forLeftHandImage:leftHandImage
-                                                                                                         forRightHandImage:rightHandImage
-                                                                                                            withProviderId:imageHashingProviderId];
-      return comparisonResult;
+        id<OSImageHashable> leftHandImage = imageConverter(leftHandElement);
+        id<OSImageHashable> rightHandImage = imageConverter(rightHandElement);
+        NSComparisonResult comparisonResult = comparator(leftHandImage, rightHandImage);
+        return comparisonResult;
     }];
     return result;
 }

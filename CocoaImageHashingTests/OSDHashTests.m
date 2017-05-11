@@ -62,7 +62,7 @@
     NSData *imageData = [self loadImageAsData:@"blurred/architecture1.bmp"];
     [self measureBlock:^{
       for (int i = 0; i < 256; i++) {
-          [self.dHash hashImageData:imageData];
+          [self.dHash hashImage:imageData];
       }
     }];
 }
@@ -77,7 +77,7 @@
     operationQueue.maxConcurrentOperationCount = (NSInteger)[[NSProcessInfo processInfo] processorCount] * 2;
     for (NSUInteger i = 0; i < iterations; i++) {
         [operationQueue addOperationWithBlock:^{
-          [self.dHash hashImageData:imageData];
+          [self.dHash hashImage:imageData];
         }];
     }
     [operationQueue waitUntilAllOperationsAreFinished];
@@ -93,8 +93,8 @@
     const NSUInteger iterations = 1024 * 128;
     NSData *leftHandImage = [self loadImageAsData:@"blurred/architecture1.bmp"];
     NSData *rightHandImage = [self loadImageAsData:@"blurred/bamarket115.bmp"];
-    OSHashType leftHandResult = [self.dHash hashImageData:leftHandImage];
-    OSHashType rightHandResult = [self.dHash hashImageData:rightHandImage];
+    OSHashType leftHandResult = [self.dHash hashImage:leftHandImage];
+    OSHashType rightHandResult = [self.dHash hashImage:rightHandImage];
     NSDate *t0 = [NSDate date];
     NSOperationQueue *operationQueue = [NSOperationQueue new];
     operationQueue.maxConcurrentOperationCount = (NSInteger)[[NSProcessInfo processInfo] processorCount] * 2;
@@ -114,7 +114,7 @@
 - (void)testDataHashingWithMalformedInput
 {
     NSData *data = [NSMutableData dataWithLength:1024 * 1024];
-    OSHashType result = [self.dHash hashImageData:data];
+    OSHashType result = [self.dHash hashImage:data];
     XCTAssertEqual(OSHashTypeError, result);
 }
 

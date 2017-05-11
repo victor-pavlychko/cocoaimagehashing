@@ -105,12 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * The result is a 64-bit number. Returns OSHashTypeError if an error occurs during image processing.
  */
-- (OSHashType)hashImage:(OSImageType *)image;
-
-/**
- * @see -[OSImageHashing hashImage:]
- */
-- (OSHashType)hashImageData:(NSData *)imageData;
+- (OSHashType)hashImage:(id<OSImageHashable>)image;
 
 /**
  * Calculate the hash distance between two fingerprints/hashes.
@@ -143,22 +138,22 @@ NS_ASSUME_NONNULL_BEGIN
  * 
  *      distance(Fingerprint(image1), Fingerprint(image2)) < DistanceThreshold
  */
-- (BOOL)compareImageData:(NSData *)leftHandImageData
-                      to:(NSData *)rightHandImageData;
+- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
+                  to:(id<OSImageHashable>)rightHandImage;
 
 /**
  * @see -[OSImageHashing compareImageData::]
  */
-- (BOOL)compareImageData:(NSData *)leftHandImageData
-                      to:(NSData *)rightHandImageData
-   withDistanceThreshold:(OSHashDistanceType)distanceThreshold;
+- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
+                  to:(id<OSImageHashable>)rightHandImage
+       withThreshold:(OSHashDistanceType)distanceThreshold;
 
 /**
  * This method is used to create an NSComparisonResult which can be used to sort an image collection wrt their similarity to a image.
  */
-- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImageData:(NSData *)baseImageData
-                                                   forLeftHandImageData:(NSData *)leftHandImageData
-                                                  forRightHandImageData:(NSData *)rightHandImageData;
+- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImage:(id<OSImageHashable>)baseImage
+                                                   forLeftHandImage:(id<OSImageHashable>)leftHandImage
+                                                  forRightHandImage:(id<OSImageHashable>)rightHandImage;
 
 NS_ASSUME_NONNULL_END
 

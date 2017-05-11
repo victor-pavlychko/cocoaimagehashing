@@ -33,9 +33,9 @@
     operationQueue.maxConcurrentOperationCount = (NSInteger)[[NSProcessInfo processInfo] processorCount] * 2;
     for (OSTuple<OSDataHolder *, OSDataHolder *> *pair in dataSet) {
         [operationQueue addOperationWithBlock:^{
-          BOOL result = [[OSImageHashing sharedInstance] compareImageData:OS_CAST_NONNULL(pair.first.data)
-                                                                       to:OS_CAST_NONNULL(pair.second.data)
-                                                              withQuality:OSImageHashingQualityHigh];
+          BOOL result = [[OSImageHashing sharedInstance] compareImage:OS_CAST_NONNULL(pair.first.data)
+                                                                   to:OS_CAST_NONNULL(pair.second.data)
+                                                          withQuality:OSImageHashingQualityHigh];
 
           XCTAssertFalse(result, @"Images should not match: %@ - %@", pair.first.name, pair.second.name);
         }];

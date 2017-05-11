@@ -204,10 +204,10 @@
 {
     NSData *leftHandImage = [self loadImageAsData:leftHandImageName];
     NSData *rightHandImage = [self loadImageAsData:rightHandImageName];
-    OSHashType leftHandResult = [[OSImageHashing sharedInstance] hashImageData:leftHandImage
-                                                                withProviderId:imageHashingProviderId];
-    OSHashType rightHandResult = [[OSImageHashing sharedInstance] hashImageData:rightHandImage
-                                                                 withProviderId:imageHashingProviderId];
+    OSHashType leftHandResult = [[OSImageHashing sharedInstance] hashImage:leftHandImage
+                                                            withProviderId:imageHashingProviderId];
+    OSHashType rightHandResult = [[OSImageHashing sharedInstance] hashImage:rightHandImage
+                                                             withProviderId:imageHashingProviderId];
     OSHashDistanceType distance = [[OSImageHashing sharedInstance] hashDistance:leftHandResult
                                                                              to:rightHandResult
                                                                  withProviderId:imageHashingProviderId];
@@ -220,10 +220,10 @@
 {
     NSData *leftHandImage = [self loadImageAsData:leftHandImageName];
     NSData *rightHandImage = [self loadImageAsData:rightHandImageName];
-    OSHashType leftHandResult = [[OSImageHashing sharedInstance] hashImageData:leftHandImage
-                                                                withProviderId:imageHashingProviderId];
-    OSHashType rightHandResult = [[OSImageHashing sharedInstance] hashImageData:rightHandImage
-                                                                 withProviderId:imageHashingProviderId];
+    OSHashType leftHandResult = [[OSImageHashing sharedInstance] hashImage:leftHandImage
+                                                            withProviderId:imageHashingProviderId];
+    OSHashType rightHandResult = [[OSImageHashing sharedInstance] hashImage:rightHandImage
+                                                             withProviderId:imageHashingProviderId];
     OSHashDistanceType distance = [[OSImageHashing sharedInstance] hashDistance:leftHandResult
                                                                              to:rightHandResult
                                                                  withProviderId:imageHashingProviderId];
@@ -237,10 +237,10 @@
 {
     NSData *leftHandImage = [self loadImageAsData:leftHandImageName];
     NSData *rightHandImage = [self loadImageAsData:rightHandImageName];
-    OSHashType leftHandResult = [[OSImageHashing sharedInstance] hashImageData:leftHandImage
-                                                                withProviderId:imageHashingProviderId];
-    OSHashType rightHandResult = [[OSImageHashing sharedInstance] hashImageData:rightHandImage
-                                                                 withProviderId:imageHashingProviderId];
+    OSHashType leftHandResult = [[OSImageHashing sharedInstance] hashImage:leftHandImage
+                                                            withProviderId:imageHashingProviderId];
+    OSHashType rightHandResult = [[OSImageHashing sharedInstance] hashImage:rightHandImage
+                                                             withProviderId:imageHashingProviderId];
     OSHashDistanceType distance = [[OSImageHashing sharedInstance] hashDistance:leftHandResult
                                                                              to:rightHandResult
                                                                  withProviderId:imageHashingProviderId];

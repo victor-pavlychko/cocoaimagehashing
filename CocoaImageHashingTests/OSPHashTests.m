@@ -44,9 +44,9 @@
     for (NSArray<OSDataHolder *> *dataArray in dataSet) {
         NSArray<OSTuple<OSDataHolder *, OSDataHolder *> *> *pairs = [dataArray os_arrayWithPairCombinations];
         for (OSTuple<OSDataHolder *, OSDataHolder *> *pair in pairs) {
-            BOOL phashResult = [[OSImageHashing sharedInstance] compareImageData:OS_CAST_NONNULL(pair.first.data)
-                                                                              to:OS_CAST_NONNULL(pair.second.data)
-                                                                  withProviderId:OSImageHashingProviderPHash];
+            BOOL phashResult = [[OSImageHashing sharedInstance] compareImage:OS_CAST_NONNULL(pair.first.data)
+                                                                          to:OS_CAST_NONNULL(pair.second.data)
+                                                              withProviderId:OSImageHashingProviderPHash];
             XCTAssertTrue(phashResult, @"Images should match with pHash: %@ - %@", pair.first.name, pair.second.name);
         }
     }
@@ -58,9 +58,9 @@
     NSUInteger baseCount = [dataSet count];
     NSLog(@"Testing %@  combinations", @(baseCount));
     for (OSTuple<OSDataHolder *, OSDataHolder *> *pair in dataSet) {
-        BOOL result = [[OSImageHashing sharedInstance] compareImageData:OS_CAST_NONNULL(pair.first.data)
-                                                                     to:OS_CAST_NONNULL(pair.second.data)
-                                                         withProviderId:OSImageHashingProviderPHash];
+        BOOL result = [[OSImageHashing sharedInstance] compareImage:OS_CAST_NONNULL(pair.first.data)
+                                                                 to:OS_CAST_NONNULL(pair.second.data)
+                                                     withProviderId:OSImageHashingProviderPHash];
         XCTAssertFalse(result, @"Images should not match: %@ - %@", pair.first.name, pair.second.name);
     }
 }
@@ -75,7 +75,7 @@
     operationQueue.maxConcurrentOperationCount = (NSInteger)[[NSProcessInfo processInfo] processorCount] * 2;
     for (NSUInteger i = 0; i < iterations; i++) {
         [operationQueue addOperationWithBlock:^{
-          [self.pHash hashImageData:imageData];
+          [self.pHash hashImage:imageData];
         }];
     }
     [operationQueue waitUntilAllOperationsAreFinished];
@@ -89,7 +89,7 @@
 - (void)testDataHashingWithMalformedInput
 {
     NSData *data = [NSMutableData dataWithLength:1024 * 1024];
-    OSHashType result = [self.pHash hashImageData:data];
+    OSHashType result = [self.pHash hashImage:data];
     XCTAssertEqual(OSHashTypeError, result);
 }
 

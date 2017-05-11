@@ -15,7 +15,7 @@
 
 #pragma mark - OSImageHashing Protocol
 
-- (OSHashType)hashImage:(OSImageType *)image
+- (OSHashType)hashImage:(id<OSImageHashable>)image
 {
     NSAssert(image, @"Image must not be null");
     CGSize imageSize = self.hashImageSizeInPiexls;
@@ -27,29 +27,6 @@
     return [self hashImagePixels:pixels];
 }
 
-- (OSHashType)hashImageData:(NSData *)imageData
-{
-    NSAssert(imageData, @"Image data must not be null");
-    CGSize imageSize = self.hashImageSizeInPiexls;
-    NSData *pixels = [imageData os_RGBABitmapDataWithSize:imageSize];
-    if (!pixels) {
-        return OSHashTypeError;
-    }
-    
-    return [self hashImagePixels:pixels];
-}
-
-- (BOOL)compareImageData:(NSData *)leftHandImageData
-                      to:(NSData *)rightHandImageData
-{
-    NSAssert(leftHandImageData, @"Left hand image data must not be null");
-    NSAssert(rightHandImageData, @"Right hand image data must not be null");
-    BOOL result = [self compareImageData:leftHandImageData
-                                      to:rightHandImageData
-                   withDistanceThreshold:[self hashDistanceSimilarityThreshold]];
-    return result;
-}
-
 - (OSHashDistanceType)hashDistance:(OSHashType)leftHand
                                 to:(OSHashType)rightHand
 {
@@ -58,33 +35,44 @@
     return OSHammingDistance(leftHand, rightHand);
 }
 
-- (BOOL)compareImageData:(NSData *)leftHandImageData
-                      to:(NSData *)rightHandImageData
-   withDistanceThreshold:(OSHashDistanceType)distanceThreshold
+- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
+                  to:(id<OSImageHashable>)rightHandImage
 {
-    NSAssert(leftHandImageData, @"Left hand image data must not be null");
-    NSAssert(rightHandImageData, @"Right hand image data must not be null");
-    OSHashType leftHandImageDataHash = [self hashImageData:leftHandImageData];
-    OSHashType rightHandImageDataHash = [self hashImageData:rightHandImageData];
-    if (leftHandImageDataHash == OSHashTypeError || rightHandImageDataHash == OSHashTypeError) {
+    NSAssert(leftHandImage, @"Left hand image must not be null");
+    NSAssert(rightHandImage, @"Right hand image must not be null");
+    BOOL result = [self compareImage:leftHandImage
+                                  to:rightHandImage
+                       withThreshold:[self hashDistanceSimilarityThreshold]];
+    return result;
+}
+
+- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
+                  to:(id<OSImageHashable>)rightHandImage
+       withThreshold:(OSHashDistanceType)distanceThreshold
+{
+    NSAssert(leftHandImage, @"Left hand image must not be null");
+    NSAssert(rightHandImage, @"Right hand image must not be null");
+    OSHashType leftHandImageHash = [self hashImage:leftHandImage];
+    OSHashType rightHandImageHash = [self hashImage:rightHandImage];
+    if (leftHandImageHash == OSHashTypeError || rightHandImageHash == OSHashTypeError) {
         return NO;
     }
-    OSHashDistanceType distance = [self hashDistance:leftHandImageDataHash
-                                                  to:rightHandImageDataHash];
+    OSHashDistanceType distance = [self hashDistance:leftHandImageHash
+                                                  to:rightHandImageHash];
     return distance < distanceThreshold;
 }
 
-- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImageData:(NSData *)baseImageData
-                                                   forLeftHandImageData:(NSData *)leftHandImageData
-                                                  forRightHandImageData:(NSData *)rightHandImageData
+- (NSComparisonResult)imageSimilarityComparatorForImageForBaseImage:(id<OSImageHashable>)baseImage
+                                                   forLeftHandImage:(id<OSImageHashable>)leftHandImage
+                                                  forRightHandImage:(id<OSImageHashable>)rightHandImage
 {
-    NSAssert(baseImageData, @"Base image data must not be null");
-    NSAssert(rightHandImageData, @"Right hand image data must not be null");
-    NSAssert(leftHandImageData, @"Left hand image data must not be null");
-    NSAssert(rightHandImageData, @"Right hand image data must not be null");
-    OSHashType leftHandImageHash = [self hashImageData:leftHandImageData];
-    OSHashType rightHandImageHash = [self hashImageData:rightHandImageData];
-    OSHashType baseImageHash = [self hashImageData:baseImageData];
+    NSAssert(baseImage, @"Base image must not be null");
+    NSAssert(rightHandImage, @"Right hand image must not be null");
+    NSAssert(leftHandImage, @"Left hand image must not be null");
+    NSAssert(rightHandImage, @"Right hand image must not be null");
+    OSHashType leftHandImageHash = [self hashImage:leftHandImage];
+    OSHashType rightHandImageHash = [self hashImage:rightHandImage];
+    OSHashType baseImageHash = [self hashImage:baseImage];
     if (baseImageHash == OSHashTypeError) {
         return NSOrderedSame;
     } else if (leftHandImageHash == OSHashTypeError) {
@@ -92,13 +80,13 @@
     } else if (rightHandImageHash == OSHashTypeError) {
         return NSOrderedAscending;
     }
-    OSHashDistanceType distanceToLeftImageData = [self hashDistance:leftHandImageHash
-                                                                 to:baseImageHash];
-    OSHashDistanceType distanceToRightImageData = [self hashDistance:rightHandImageHash
-                                                                  to:baseImageHash];
-    if (distanceToLeftImageData < distanceToRightImageData) {
+    OSHashDistanceType distanceToLeftImage = [self hashDistance:leftHandImageHash
+                                                             to:baseImageHash];
+    OSHashDistanceType distanceToRightImage = [self hashDistance:rightHandImageHash
+                                                              to:baseImageHash];
+    if (distanceToLeftImage < distanceToRightImage) {
         return NSOrderedAscending;
-    } else if (distanceToLeftImageData > distanceToRightImageData) {
+    } else if (distanceToLeftImage > distanceToRightImage) {
         return NSOrderedDescending;
     } else {
         return NSOrderedSame;

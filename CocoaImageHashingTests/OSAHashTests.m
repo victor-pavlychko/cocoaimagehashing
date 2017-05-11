@@ -31,7 +31,7 @@
 - (void)testDataHashingWithMalformedInput
 {
     NSData *data = [NSMutableData dataWithLength:1024 * 1024];
-    OSHashType result = [self.aHash hashImageData:data];
+    OSHashType result = [self.aHash hashImage:data];
     XCTAssertEqual(OSHashTypeError, result);
 }
 

@@ -8,19 +8,17 @@
 
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class OSTuple<A, B>;
 
 #pragma mark - NSArray Category
 
 @interface NSArray (CocoaImageHashing)
 
-NS_ASSUME_NONNULL_BEGIN
-
 - (NSArray<OSTuple<id, id> *> *)os_arrayWithPairCombinations;
 
 - (void)os_enumeratePairCombinationsUsingBlock:(void (^)(id __unsafe_unretained leftHand, id __unsafe_unretained rightHand))block;
-
-NS_ASSUME_NONNULL_END
 
 @end
 
@@ -28,10 +26,8 @@ NS_ASSUME_NONNULL_END
 
 @interface NSString (CocoaImageHashing)
 
-NS_ASSUME_NONNULL_BEGIN
-
 - (unsigned long long)os_fileSizeOfElementInBundle:(NSBundle *)bundle;
 
-NS_ASSUME_NONNULL_END
-
 @end
+
+NS_ASSUME_NONNULL_END

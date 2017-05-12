@@ -6,7 +6,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSFastGraphics.h"
+#import "CocoaImageHashing+Internal.h"
 
 #pragma mark - Common Macros
 

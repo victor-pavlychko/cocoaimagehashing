@@ -6,7 +6,38 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import <CocoaImageHashing/OSTypes.h>
+#import "OSImageHashingProvider.h"
+#import "OSSimilaritySearch.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ * OSImageHashingProviderId is a combinable id-type to identify OSImageHashing providers.
+ * This type is used in the OSImageHashing API to configure a specific OSImageHashing provider.
+ *
+ * If two or more providers are combined, their order is defined as follows:
+ *      OSImageHashingProviderDHash < OSImageHashingProviderPHash < OSImageHashingProviderAHash
+ */
+typedef NS_OPTIONS(UInt16, OSImageHashingProviderId) {
+    OSImageHashingProviderAHash = 1 << 0,
+    OSImageHashingProviderDHash = 1 << 1,
+    OSImageHashingProviderPHash = 1 << 2,
+    OSImageHashingProviderNone = 0
+};
+
+/**
+ * OSImageHashingQuality represents the quality used to calculate image hashes. The higher the quality, the more CPU
+ * time and memory is consumed for calculating the image fingerprints.
+ *
+ * Selecting a higher priority typically improves hashing quality and reduces number of false-positives significantly
+ * (by chaining different hashing providers to refine and check the calculated result).
+ */
+typedef NS_ENUM(UInt16, OSImageHashingQuality) {
+    OSImageHashingQualityLow,
+    OSImageHashingQualityMedium,
+    OSImageHashingQualityHigh,
+    OSImageHashingQualityNone
+};
 
 /**
  * The OSImageHashing class is the primary way to interact with the CocoaImageHashing framework.
@@ -19,9 +50,7 @@
  * 4. concurrent stream based similarity search
  * 5. sequential array sorting based on fingerprint metrics
  */
-@interface OSImageHashing : NSObject <OSImageHashingProvider>
-
-NS_ASSUME_NONNULL_BEGIN
+@interface OSImageHashing : NSObject
 
 /**
  * @brief Factory method for instantiating OSImageHashing objects.
@@ -207,6 +236,24 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary<OSImageId *, NSSet<OSImageId *> *> *)dictionaryFromSimilarImagesResult:(NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImageTuples;
 
-NS_ASSUME_NONNULL_END
-
 @end
+
+#pragma mark - Primitive Type Functions and Utilities
+
+OSImageHashingProviderId OSImageHashingProviderDefaultProviderId(void);
+
+OSImageHashingProviderId OSImageHashingProviderIdFromString(NSString *name);
+NSString *NSStringFromOSImageHashingProviderId(OSImageHashingProviderId providerId);
+NSArray<NSNumber *> *NSArrayFromOSImageHashingProviderId(void);
+NSArray<NSString *> *NSArrayFromOSImageHashingProviderIdNames();
+
+OSImageHashingQuality OSImageHashingQualityFromString(NSString *name);
+NSString *NSStringFromOSImageHashingQuality(OSImageHashingQuality hashingQuality);
+NSArray<NSNumber *> *NSArrayFromOSImageHashingQuality(void);
+NSArray<NSString *> *NSArrayFromOSImageHashingQualityNames(void);
+
+OSImageHashingProviderId OSImageHashingProviderIdForHashingQuality(OSImageHashingQuality hashingQuality);
+id<OSImageHashingProvider> OSImageHashingProviderFromImageHashingProviderId(OSImageHashingProviderId imageHashingProviderId);
+NSArray<id<OSImageHashingProvider>> *NSArrayForProvidersFromOSImageHashingProviderId(OSImageHashingProviderId imageHashingProviderId);
+
+NS_ASSUME_NONNULL_END

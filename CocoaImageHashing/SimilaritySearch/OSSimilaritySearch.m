@@ -6,9 +6,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSCategories.h"
-#import "OSImageHashing.h"
-#import "OSSimilaritySearch.h"
+#import "CocoaImageHashing+Internal.h"
 
 @import Darwin.libkern.OSAtomic;
 

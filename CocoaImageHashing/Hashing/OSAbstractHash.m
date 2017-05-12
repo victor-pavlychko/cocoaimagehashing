@@ -6,10 +6,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSAbstractHash.h"
-#import "OSCategories.h"
-#import "OSImageHashing.h"
-#import "OSTypes+Internal.h"
+#import "CocoaImageHashing+Internal.h"
 
 @implementation OSAbstractHash
 

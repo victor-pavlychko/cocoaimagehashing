@@ -6,8 +6,7 @@
 //  Copyright © 2017 Andreas Meingast. All rights reserved.
 //
 
-#import "UIImage+OSImageHashable.h"
-#import "OSTypes+Internal.h"
+#import "CocoaImageHashing+Internal.h"
 
 @implementation UIImage (OSImageHashable)
 

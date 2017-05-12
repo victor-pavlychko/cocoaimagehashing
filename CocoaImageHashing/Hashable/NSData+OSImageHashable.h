@@ -7,9 +7,12 @@
 //
 
 @import Foundation;
-
 #import "OSImageHashable.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (OSImageHashable) <OSImageHashable>
 
 @end
+
+NS_ASSUME_NONNULL_END

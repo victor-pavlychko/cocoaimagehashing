@@ -6,9 +6,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSCategories.h"
-#import "OSFastGraphics.h"
-#import "OSPHash.h"
+#import "CocoaImageHashing+Internal.h"
 
 static const NSUInteger OSPHashImageWidthInPixels = 32;
 static const NSUInteger OSPHashImageHeightInPixels = 32;

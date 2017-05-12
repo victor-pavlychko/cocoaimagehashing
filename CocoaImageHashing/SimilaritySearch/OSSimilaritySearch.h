@@ -6,11 +6,14 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSTypes+Internal.h"
-
-@interface OSSimilaritySearch : NSObject
+#import "OSTypes.h"
+#import "OSTuple.h"
+#import "OSImageHashable.h"
+#import "OSImageHashingProvider.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface OSSimilaritySearch : NSObject
 
 + (instancetype)sharedInstance;
 
@@ -33,6 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary<OSImageId *, NSSet<OSImageId *> *> *)dictionaryFromSimilarImagesResult:(NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImageTuples;
 
-NS_ASSUME_NONNULL_END
-
 @end
+
+NS_ASSUME_NONNULL_END

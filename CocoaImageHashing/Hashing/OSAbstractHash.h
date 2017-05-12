@@ -6,7 +6,9 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSTypes.h"
+#import "OSImageHashingProvider.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface OSAbstractHash : NSObject <OSImageHashingProvider>
 
@@ -19,3 +21,5 @@
 - (OSHashType)hashImagePixels:(NSData *)imagePixels;
 
 @end
+
+NS_ASSUME_NONNULL_END

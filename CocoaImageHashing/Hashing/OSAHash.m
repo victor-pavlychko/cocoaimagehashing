@@ -6,9 +6,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSAHash.h"
-#import "OSCategories.h"
-#import "OSFastGraphics.h"
+#import "CocoaImageHashing+Internal.h"
 
 static const NSUInteger OSAHashImageWidthInPixels = 8;
 static const NSUInteger OSAHashImageHeightInPixels = 8;

@@ -6,8 +6,6 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSCategories.h"
-#import "OSFastGraphics.h"
 #import "OSImageHashingBaseTest.h"
 
 @interface OSFastGraphicsTests : OSImageHashingBaseTest

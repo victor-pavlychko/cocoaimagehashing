@@ -6,9 +6,7 @@
 //  Copyright © 2017 Andreas Meingast. All rights reserved.
 //
 
-#import "NSData+OSImageHashable.h"
-#import "OSTypes.h"
-#import "OSTypes+Internal.h"
+#import "CocoaImageHashing+Internal.h"
 
 @implementation NSData (OSImageHashable)
 

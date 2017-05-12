@@ -6,9 +6,7 @@
 //  Copyright © 2017 Andreas Meingast. All rights reserved.
 //
 
-#import "PHAsset+OSImageHashable.h"
-#import "UIImage+OSImageHashable.h"
-#import "OSTypes+Internal.h"
+#import "CocoaImageHashing+Internal.h"
 
 @implementation PHAsset (OSImageHashable)
 

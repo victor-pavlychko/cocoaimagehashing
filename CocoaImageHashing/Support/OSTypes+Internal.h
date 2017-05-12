@@ -3,25 +3,9 @@
 //  CocoaImageHashing
 //
 
-#import <CocoaImageHashing/OSTypes.h>
+#import "OSTypes.h"
 
-#pragma mark - Tuples
-
-@interface OSTuple<A, B> () {
-    @public
-    A __strong _Nullable _first;
-    B __strong _Nullable _second;
-}
-
-@end
-
-@interface OSHashResultTuple <A> () {
-    @public
-    A __strong _Nullable _first;
-    OSHashType _hashResult;
-}
-
-@end
+NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Utility Macros
 
@@ -51,11 +35,7 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesForSize(CGSize size)
  */
 @interface OSNonNullHolder <__covariant Type>
 
-NS_ASSUME_NONNULL_BEGIN
-
 - (Type)el;
-
-NS_ASSUME_NONNULL_END
 
 @end
 
@@ -64,3 +44,5 @@ NS_ASSUME_NONNULL_END
         OSNonNullHolder<__typeof(V)> *type; \
         (__typeof(type.el)) V;              \
     })
+
+NS_ASSUME_NONNULL_END

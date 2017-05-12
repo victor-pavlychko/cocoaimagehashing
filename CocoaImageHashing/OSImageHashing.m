@@ -6,9 +6,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import "OSImageHashing.h"
-#import "OSCategories.h"
-#import "OSSimilaritySearch.h"
+#import "CocoaImageHashing+Internal.h"
 
 @implementation OSImageHashing
 
@@ -20,71 +18,6 @@
       instance = [self new];
     });
     return instance;
-}
-
-#pragma mark - OSImageHashingProvider
-
-- (OSHashDistanceType)hashDistance:(OSHashType)leftHand
-                                to:(OSHashType)rightHand
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    OSHashDistanceType result = [self hashDistance:leftHand
-                                                to:rightHand
-                                    withProviderId:providerId];
-    return result;
-}
-
-- (OSHashType)hashImage:(id<OSImageHashable>)image
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    OSHashType result = [self hashImage:image
-                         withProviderId:providerId];
-    return result;
-}
-
-- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
-                  to:(id<OSImageHashable>)rightHandImage
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    BOOL result = [self compareImage:leftHandImage
-                                  to:rightHandImage
-                      withProviderId:providerId];
-    return result;
-}
-
-- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
-                  to:(id<OSImageHashable>)rightHandImage
-       withThreshold:(OSHashDistanceType)distanceThreshold
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    BOOL result = [self compareImage:leftHandImage
-                                  to:rightHandImage
-                       withThreshold:distanceThreshold
-                      withProviderId:providerId];
-    return result;
-}
-
-- (NSComparator)imageSimilarityComparatorForBaseImage:(id<OSImageHashable>)baseImage
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    NSComparator result = [self imageSimilarityComparatorForBaseImage:baseImage
-                                                       withProviderId:providerId];
-    return result;
-}
-
-
-- (CGSize)hashImageSizeInPiexls
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    CGSize result = [self hashImageSizeInPiexlsWithProvider:providerId];
-    return result;
-}
-
-- (OSHashDistanceType)hashDistanceSimilarityThreshold
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderDefaultProviderId();
-    OSHashDistanceType result = [self hashDistanceSimilarityThresholdWithProvider:providerId];
-    return result;
 }
 
 #pragma mark - OSImageHashingProvider parametrizations

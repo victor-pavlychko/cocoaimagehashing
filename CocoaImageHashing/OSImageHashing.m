@@ -56,17 +56,6 @@
 
 - (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
                   to:(id<OSImageHashable>)rightHandImage
-         withQuality:(OSImageHashingQuality)imageHashingQuality
-{
-    OSImageHashingProviderId hashingProvider = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
-    BOOL result = [self compareImage:leftHandImage
-                                  to:rightHandImage
-                      withProviderId:hashingProvider];
-    return result;
-}
-
-- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
-                  to:(id<OSImageHashable>)rightHandImage
       withProviderId:(OSImageHashingProviderId)providerId
 {
     id<OSImageHashingProvider> firstProdiver = OSImageHashingProviderFromImageHashingProviderId(providerId);
@@ -105,29 +94,6 @@
 
 #pragma mark - Concurrent, stream based similarity search
 
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                            forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
-    id<OSImageHashingProvider> firstProvider = OSImageHashingProviderFromImageHashingProviderId(providerId);
-    OSHashDistanceType hashDistanceTreshold = [firstProvider hashDistanceSimilarityThreshold];
-    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self similarImagesWithHashingQuality:imageHashingQuality
-                                                                       withHashDistanceThreshold:hashDistanceTreshold
-                                                                           forImageStreamHandler:imageStreamHandler];
-    return result;
-}
-
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                        withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
-                                                            forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler
-{
-    OSImageHashingProviderId hashingProvider = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
-    NSArray<OSTuple<NSString *, NSString *> *> *result = [self similarImagesWithProvider:hashingProvider
-                                                               withHashDistanceThreshold:hashDistanceThreshold
-                                                                   forImageStreamHandler:imageStreamHandler];
-    return result;
-}
-
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                       forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler
 {
@@ -151,29 +117,6 @@
 }
 
 #pragma mark - Concurrent, array based similarity search
-
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                                        forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)images
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
-    id<OSImageHashingProvider> firstProvider = OSImageHashingProviderFromImageHashingProviderId(providerId);
-    OSHashDistanceType hashDistanceTreshold = [firstProvider hashDistanceSimilarityThreshold];
-    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self similarImagesWithHashingQuality:imageHashingQuality
-                                                                       withHashDistanceThreshold:hashDistanceTreshold
-                                                                                       forImages:images];
-    return result;
-}
-
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                        withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
-                                                                        forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)images
-{
-    OSImageHashingProviderId providerId = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
-    NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self similarImagesWithProvider:providerId
-                                                                 withHashDistanceThreshold:hashDistanceThreshold
-                                                                                 forImages:images];
-    return result;
-}
 
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                                   forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)images
@@ -201,17 +144,6 @@
 
 - (NSArray<id> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
                                                  forArray:(NSArray<id> *)array
-                                        forImageConverter:(id<OSImageHashable> (^)(id arrayElement))imageConverter
-{
-    OSImageHashingProviderId imageHashingProviderId = OSImageHashingProviderDefaultProviderId();
-    return [self sortedArrayUsingImageSimilartyComparator:baseImage
-                                                 forArray:array
-                                forImageHashingProviderId:imageHashingProviderId
-                                        forImageConverter:imageConverter];
-}
-
-- (NSArray<id> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                 forArray:(NSArray<id> *)array
                                 forImageHashingProviderId:(OSImageHashingProviderId)imageHashingProviderId
                                         forImageConverter:(id<OSImageHashable> (^)(id arrayElement))imageConverter
 {
@@ -229,30 +161,7 @@
     return result;
 }
 
-- (NSArray<id> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                 forArray:(NSArray<id> *)array
-                                   forImageHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                        forImageConverter:(id<OSImageHashable> (^)(id arrayElement))imageConverter
-{
-    OSImageHashingProviderId imageHashingProviderId = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
-    return [self sortedArrayUsingImageSimilartyComparator:baseImage
-                                                 forArray:array
-                                forImageHashingProviderId:imageHashingProviderId
-                                        forImageConverter:imageConverter];
-}
-
 #pragma mark - Array sorting with image similarity metrics for NSData NSArrays
-
-- (NSArray<id<OSImageHashable>> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                                  forArray:(NSArray<id<OSImageHashable>> *)array
-{
-    NSArray<id<OSImageHashable>> *result = [self sortedArrayUsingImageSimilartyComparator:baseImage
-                                                                                 forArray:array
-                                                                        forImageConverter:^id<OSImageHashable>(id<OSImageHashable>arrayElement) {
-                                                                            return arrayElement;
-                                                                        }];
-    return result;
-}
 
 - (NSArray<id<OSImageHashable>> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
                                                                   forArray:(NSArray<id<OSImageHashable>> *)array
@@ -264,19 +173,6 @@
                                                                         forImageConverter:^id<OSImageHashable>(id<OSImageHashable> arrayElement) {
                                                                             return arrayElement;
                                                                         }];
-    return result;
-}
-
-- (NSArray<id<OSImageHashable>> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                                  forArray:(NSArray<id<OSImageHashable>> *)array
-                                                    forImageHashingQuality:(OSImageHashingQuality)imageHashingQuality
-{
-    NSArray<id<OSImageHashable>> *result = [self sortedArrayUsingImageSimilartyComparator:baseImage
-                                                                      forArray:array
-                                                        forImageHashingQuality:imageHashingQuality
-                                                             forImageConverter:^id<OSImageHashable>(id<OSImageHashable>arrayElement) {
-                                                                 return arrayElement;
-                                                             }];
     return result;
 }
 

@@ -26,20 +26,6 @@ typedef NS_OPTIONS(UInt16, OSImageHashingProviderId) {
 };
 
 /**
- * OSImageHashingQuality represents the quality used to calculate image hashes. The higher the quality, the more CPU
- * time and memory is consumed for calculating the image fingerprints.
- *
- * Selecting a higher priority typically improves hashing quality and reduces number of false-positives significantly
- * (by chaining different hashing providers to refine and check the calculated result).
- */
-typedef NS_ENUM(UInt16, OSImageHashingQuality) {
-    OSImageHashingQualityLow,
-    OSImageHashingQualityMedium,
-    OSImageHashingQualityHigh,
-    OSImageHashingQualityNone
-};
-
-/**
  * The OSImageHashing class is the primary way to interact with the CocoaImageHashing framework.
  *
  * It provides APIs for:
@@ -88,13 +74,6 @@ typedef NS_ENUM(UInt16, OSImageHashingQuality) {
  */
 - (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
                   to:(id<OSImageHashable>)rightHandImage
-         withQuality:(OSImageHashingQuality)imageHashingQuality;
-
-/**
- * @see -[OSImageHashingProvider compareImage:to:]
- */
-- (BOOL)compareImage:(id<OSImageHashable>)leftHandImage
-                  to:(id<OSImageHashable>)rightHandImage
       withProviderId:(OSImageHashingProviderId)providerId;
 
 /**
@@ -126,24 +105,11 @@ typedef NS_ENUM(UInt16, OSImageHashingQuality) {
  * (e.g. hard-drive, network), then look for similarities and in a second step report that information back to the user.
  * Such an ID can for example be the unique file-path of an image on disk or a database-id referencing an image.
  */
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                            forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler;
-
-/**
- * @see -[OSImageHashing similarImagesWithHashingQuality::]
- */
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                        withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
-                                                            forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler;
-
-/**
- * @see -[OSImageHashing similarImagesWithHashingQuality::]
- */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                       forImageStreamHandler:(OSTuple<OSImageId *, id<OSImageHashable>> * (^)())imageStreamHandler;
 
 /**
- * @see -[OSImageHashing similarImagesWithHashingQuality::]
+ * @see -[OSImageHashing similarImagesWithProvider::]
  */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
@@ -160,24 +126,11 @@ typedef NS_ENUM(UInt16, OSImageHashingQuality) {
  * A typical use-case for this call is to find similar images for a data-set that is already present in memory or 
  * small enough to disregard the memory consumption.
  */
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                                        forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)images;
-
-/**
- * @see -[OSImageHashing similarImagesWithHashingQuality::];
- */
-- (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                        withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
-                                                                        forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)images;
-
-/**
- * @see -[OSImageHashing similarImagesWithHashingQuality::];
- */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                                   forImages:(NSArray<OSTuple<OSImageId *, id<OSImageHashable>> *> *)images;
 
 /**
- * @see -[OSImageHashing similarImagesWithHashingQuality::];
+ * @see -[OSImageHashing similarImagesWithProvider::];
  */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
@@ -190,21 +143,7 @@ typedef NS_ENUM(UInt16, OSImageHashingQuality) {
  */
 - (NSArray<id> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
                                                  forArray:(NSArray<id> *)array
-                                        forImageConverter:(id<OSImageHashable> (^)(id arrayElement))imageConverter;
-/*
- * @see -[OSImageHashing sortedArrayUsingImageSimilartyComparator:::];
- */
-- (NSArray<id> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                 forArray:(NSArray<id> *)array
                                 forImageHashingProviderId:(OSImageHashingProviderId)imageHashingProviderId
-                                        forImageConverter:(id<OSImageHashable> (^)(id arrayElement))imageConverter;
-
-/*
- * @see -[OSImageHashing sortedArrayUsingImageSimilartyComparator:::];
- */
-- (NSArray<id> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                 forArray:(NSArray<id> *)array
-                                   forImageHashingQuality:(OSImageHashingQuality)imageHashingQuality
                                         forImageConverter:(id<OSImageHashable> (^)(id arrayElement))imageConverter;
 
 #pragma mark - Array sorting with image similarity metrics for NSData NSArrays
@@ -213,21 +152,8 @@ typedef NS_ENUM(UInt16, OSImageHashingQuality) {
  * Sort an NSArray containing image-data with a sort-order defined by the array's content-images distance to a base image.
  */
 - (NSArray<id<OSImageHashable>> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                                  forArray:(NSArray<id<OSImageHashable>> *)array;
-
-/**
- * @see -[OSImageHashing sortedArrayUsingImageSimilartyComparator::];
- */
-- (NSArray<id<OSImageHashable>> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
                                                                   forArray:(NSArray<id<OSImageHashable>> *)array
                                                  forImageHashingProviderId:(OSImageHashingProviderId)imageHashingProviderId;
-
-/**
- * @see -[OSImageHashing sortedArrayUsingImageSimilartyComparator::];
- */
-- (NSArray<id<OSImageHashable>> *)sortedArrayUsingImageSimilartyComparator:(id<OSImageHashable>)baseImage
-                                                                  forArray:(NSArray<id<OSImageHashable>> *)array
-                                                    forImageHashingQuality:(OSImageHashingQuality)imageHashingQuality;
 
 #pragma mark - Result Conversion
 
@@ -240,19 +166,11 @@ typedef NS_ENUM(UInt16, OSImageHashingQuality) {
 
 #pragma mark - Primitive Type Functions and Utilities
 
-OSImageHashingProviderId OSImageHashingProviderDefaultProviderId(void);
-
 OSImageHashingProviderId OSImageHashingProviderIdFromString(NSString *name);
 NSString *NSStringFromOSImageHashingProviderId(OSImageHashingProviderId providerId);
 NSArray<NSNumber *> *NSArrayFromOSImageHashingProviderId(void);
 NSArray<NSString *> *NSArrayFromOSImageHashingProviderIdNames();
 
-OSImageHashingQuality OSImageHashingQualityFromString(NSString *name);
-NSString *NSStringFromOSImageHashingQuality(OSImageHashingQuality hashingQuality);
-NSArray<NSNumber *> *NSArrayFromOSImageHashingQuality(void);
-NSArray<NSString *> *NSArrayFromOSImageHashingQualityNames(void);
-
-OSImageHashingProviderId OSImageHashingProviderIdForHashingQuality(OSImageHashingQuality hashingQuality);
 id<OSImageHashingProvider> OSImageHashingProviderFromImageHashingProviderId(OSImageHashingProviderId imageHashingProviderId);
 NSArray<id<OSImageHashingProvider>> *NSArrayForProvidersFromOSImageHashingProviderId(OSImageHashingProviderId imageHashingProviderId);
 

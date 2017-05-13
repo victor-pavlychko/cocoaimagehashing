@@ -14,11 +14,6 @@ const OSHashType OSHashTypeError = -1;
 
 #pragma mark - Primitive Type Functions and Utilities
 
-inline OSImageHashingProviderId OSImageHashingProviderDefaultProviderId(void)
-{
-    return OSImageHashingProviderDHash;
-}
-
 inline OSImageHashingProviderId OSImageHashingProviderIdFromString(NSString *name)
 {
     NSCAssert(name, @"Image hashing provider name must not be null");
@@ -62,63 +57,6 @@ inline NSArray<NSString *> *NSArrayFromOSImageHashingProviderIdNames()
         [result addObject:providerName];
     }
     return result;
-}
-
-inline OSImageHashingQuality OSImageHashingQualityFromString(NSString *name)
-{
-    NSCAssert(name, @"Image hashing quality name must not be null");
-    if ([name isEqualToString:@"Low"]) {
-        return OSImageHashingQualityLow;
-    } else if ([name isEqualToString:@"Medium"]) {
-        return OSImageHashingQualityMedium;
-    } else if ([name isEqualToString:@"High"]) {
-        return OSImageHashingQualityHigh;
-    } else {
-        return OSImageHashingQualityNone;
-    }
-}
-
-inline NSString *NSStringFromOSImageHashingQuality(OSImageHashingQuality hashingQuality)
-{
-    switch (hashingQuality) {
-        case OSImageHashingQualityLow:
-            return @"Low";
-        case OSImageHashingQualityMedium:
-            return @"Medium";
-        case OSImageHashingQualityHigh:
-            return @"High";
-        case OSImageHashingQualityNone:
-            return @"None";
-    }
-    return nil;
-}
-
-inline NSArray<NSNumber *> *NSArrayFromOSImageHashingQuality()
-{
-    return @[@(OSImageHashingQualityLow), @(OSImageHashingQualityMedium), @(OSImageHashingQualityHigh)];
-}
-
-inline NSArray<NSString *> *NSArrayFromOSImageHashingQualityNames()
-{
-    NSMutableArray<NSString *> *result = [NSMutableArray new];
-    for (NSNumber *qualityNumber in NSArrayFromOSImageHashingQuality()) {
-        OSImageHashingQuality hashingQuality = (OSImageHashingQuality)[qualityNumber integerValue];
-        NSString *hashingQualityName = NSStringFromOSImageHashingQuality(hashingQuality);
-        [result addObject:hashingQualityName];
-    }
-    return result;
-}
-
-inline OSImageHashingProviderId OSImageHashingProviderIdForHashingQuality(OSImageHashingQuality hashingQuality)
-{
-    switch (hashingQuality) {
-        case OSImageHashingQualityLow:
-        case OSImageHashingQualityMedium:
-        case OSImageHashingQualityHigh:
-            return OSImageHashingProviderDHash;
-        case OSImageHashingQualityNone:
-            return OSImageHashingProviderNone;
-    }
 }
 
 inline id<OSImageHashingProvider> OSImageHashingProviderFromImageHashingProviderId(OSImageHashingProviderId imageHashingProviderId)
